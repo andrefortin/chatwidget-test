@@ -16,9 +16,31 @@
 
 <script>
   
+
+  
+  function waitForElementToDisplay(selector, callback, checkFrequencyInMs, timeoutInMs) {
+    var startTimeInMs = Date.now();
+    (function loopSearch() {
+      if (document.querySelector(selector) != null) {
+        callback();
+        return;
+      }
+      else {
+        setTimeout(function () {
+          if (timeoutInMs && Date.now() - startTimeInMs > timeoutInMs)
+            return;
+          loopSearch();
+        }, checkFrequencyInMs);
+      }
+    })();
+  }
+
+
   function waitForElement(selector) {
     return new Promise(resolve => {
         if (document.querySelector(selector)) {
+            console.log('FOUND selector');
+            alert('FOUND selector');
             return resolve(document.querySelector(selector));
         }
 
@@ -47,12 +69,21 @@
   
   $(document).ready(() => {
     alert('document READY!');
-    waitForElement('#lc_text-widget--send-btn')
+    
+    waitForElementToDisplay("#lc_text-widget--send-btn",() => {
+      alert('ChatWidget Button Hooked');
+      console.log(element.textContent);
+      element.addEventListener("click", btnCwSubmit());
+    }, 1000, 9000);
+  
+  /*
+     waitForElement('#lc_text-widget--send-btn')
       .then(element => {
         alert('ChatWidget Button Hooked');
         console.log(element.textContent);
         element.addEventListener("click", btnCwSubmit());
       });
+  */
   });
 
   
