@@ -15,8 +15,43 @@
 </script>
 
 <script>
+  
+  function waitForElement(selector) {
+    return new Promise(resolve => {
+        if (document.querySelector(selector)) {
+            return resolve(document.querySelector(selector));
+        }
+
+        const observer = new MutationObserver(mutations => {
+            if (document.querySelector(selector)) {
+              observer.disconnect();  
+              return resolve(document.querySelector(selector));
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    });
+  }
+
+  function btnCwSubmit() {
+    try {
+      alert('ChatWidget Button was clicked!');
+      // document.getElementById("demo").innerHTML = "Hello World";
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
   $(document).ready(() => {
-    alert('ready');
+    waitForElement('lc_text-widget--send-btn')
+      .then(element => {
+        alert('ChatWidget Button Hooked');
+        console.log(element.textContent);
+        element.addEventListener("click", btnCwSubmit());
+      });
   });
 
 </script>
