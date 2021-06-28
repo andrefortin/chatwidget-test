@@ -15,7 +15,7 @@
 </script>
 
 <script>
-  $('document').ready(() => {
+  $(document).ready(() => {
     alert('ready');
   });
 
