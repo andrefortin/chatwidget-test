@@ -46,6 +46,7 @@
   }
   
   $(document).ready(() => {
+    alert('document READY!');
     waitForElement('lc_text-widget--send-btn')
       .then(element => {
         alert('ChatWidget Button Hooked');
@@ -54,6 +55,7 @@
       });
   });
 
+  
 </script>
 
 
