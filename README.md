@@ -94,3 +94,6 @@
 
 This is where we test the GHL ChatWidget
 
+Using some setInverval code
+
+
